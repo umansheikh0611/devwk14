@@ -4,23 +4,23 @@ on:
     branches:
       - develop
   
-  jobs:
-    lint-job:
-      runs-on: ubuntu-latest
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@4
-        - name: Lint HTML and CSS
-          run: |
-            npx htmlhint "**/*.html"
-            npx stylelint "**/*.css"
+jobs:
+  lint-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@4
+      - name: Lint HTML and CSS
+        run: |
+          npx htmlhint "**/*.html"
+          npx stylelint "**/*.css"
 
-    build-job:
-      needs: lint-job
-      runs-on: ubuntu-latest 
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@4
-        - name: Build with Parcel
-          run: |
-            npx parcel build "./src/index.html" --dist-dir "./dev" --public-url "./"
+  build-job:
+    needs: lint-job
+    runs-on: ubuntu-latest 
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@4
+      - name: Build with Parcel
+        run: |
+          npx parcel build "./src/index.html" --dist-dir "./dev" --public-url "./"
